@@ -1,3 +1,3 @@
 export default function Timeline() {
-  return <p>I am the timeline</p>;
+  return <p>THIS IS WHERE THE TIMELINE WILL BE. WHAT IS A TIMELINE???</p>;
 }

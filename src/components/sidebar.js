@@ -1,3 +1,3 @@
 export default function Sidebar() {
-  return <p>I am the sidebar</p>;
+  return <p>THIS IS WHERE THE SIDEBAR WILL BE</p>;
 }
