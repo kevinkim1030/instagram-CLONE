@@ -1,3 +1,7 @@
 export default function Timeline() {
-  return <p>THIS IS WHERE THE TIMELINE WILL BE. WHAT IS A TIMELINE???</p>;
+  return (
+    <div className="container col-span-2">
+      <p>I am the timeline. what goes in a timeline?</p>
+    </div>
+  );
 }
