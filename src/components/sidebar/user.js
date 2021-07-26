@@ -1,10 +1,9 @@
-import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 
-const User = ({ fullName, username }) =>
-  !username || !fullName ? (
+export default function User({ fullName, username }) {
+  return !username || !fullName ? (
     <Skeleton count={1} height={61} />
   ) : (
     <Link to={`/p/${username}`} className="grid grid-cols-4 gap-4 mb-6 items-center">
@@ -21,10 +20,11 @@ const User = ({ fullName, username }) =>
       </div>
     </Link>
   );
-
-export default memo(User);
+}
 
 User.propTypes = {
-  username: PropTypes.string.isRequired,
-  fullName: PropTypes.string.isRequired
+  username: PropTypes.string,
+  fullName: PropTypes.string
 };
+
+// User.whyDidYouRender = true;
