@@ -12,6 +12,21 @@ export async function doesUsernameExist(username) {
   return result.docs.map((user) => user.data().length > 0);
 }
 
+export async function getUserByUsername(username) {
+  const result = await firebase
+    .firestore()
+    .collection('users')
+    .where('username', '==', username)
+    .get();
+
+  // console.log(result);
+
+  return result.docs.map((item) => ({
+    ...item.data(),
+    docId: item.id
+  }));
+}
+
 // get user from the firestore where userId === userId (passed from the auth)
 export async function getUserByUserId(userId) {
   const result = await firebase.firestore().collection('users').where('userId', '==', userId).get();
@@ -89,4 +104,60 @@ export async function getPhotos(userId, following) {
     })
   );
   return photosWithUserDetails;
+}
+
+// export async function getUserIdByUsername(username) {
+//   const result = await firebase
+//     .firestore()
+//     .collection('users')
+//     .where
+// }
+
+export async function getUserPhotosByUsername(username) {
+  const [user] = await getUserByUsername(username);
+  // console.log('user', user);
+  const result = await firebase
+    .firestore()
+    .collection('photos')
+    .where('userId', '==', user.userId)
+    .get();
+
+  return result.docs.map((item) => ({
+    ...item.data(),
+    docId: item.id
+  }));
+}
+
+export async function isUserFollowingProfile(loggedInUserUsername, profileUserId) {
+  const result = await firebase
+    .firestore()
+    .collection('users')
+    .where('username', '==', loggedInUserUsername)
+    .where('following', 'array-contains', profileUserId)
+    .get();
+
+  const [response = {}] = result.docs.map((item) => ({
+    ...item.data(),
+    docId: item.id
+  }));
+  console.log('response', response);
+
+  return response.userId;
+}
+
+export async function toggleFollow(
+  isFollowingProfile,
+  activeUserDocId,
+  profileDocId,
+  profileUserId,
+  followingUserId
+) {
+  // first param: currently logged in user
+  // second param: docId of the user trying to be followed
+  // is the user following this profile? does logged in user follow the second user? (t/f)
+  await updateLoggedInUserFollowing(activeUserDocId, profileUserId, isFollowingProfile);
+  // first param: currently logged in user
+  // second param: docId of the user trying to be followed
+  // is the user following this profile? does logged in user follow the second user? (t/f)
+  await updateFollowedUserFollowers(profileDocId, followingUserId, isFollowingProfile);
 }
