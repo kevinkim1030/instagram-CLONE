@@ -1,5 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import ReactLoader from './components/loader';
+// import { HashRouter } from 'react-router-dom';
 import * as ROUTES from './constants/routes';
 import useAuthListener from './hooks/use-auth-listener';
 import UserContext from './context/user';
@@ -17,7 +19,8 @@ export default function App() {
   return (
     <UserContext.Provider value={{ user }}>
       <Router>
-        <Suspense fallback={<p>Loading...</p>}>
+        {/* <HashRouter> */}
+        <Suspense fallback={<ReactLoader />}>
           <Switch>
             <IsUserLoggedIn user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.LOGIN}>
               <Login />
@@ -32,6 +35,7 @@ export default function App() {
             <Route component={NotFound} />
           </Switch>
         </Suspense>
+        {/* </HashRouter> */}
       </Router>
     </UserContext.Provider>
   );
