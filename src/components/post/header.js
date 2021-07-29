@@ -12,6 +12,7 @@ export default function Header({ username }) {
             src={`/images/avatars/${username}.jpeg`}
             alt={`${username} profile picture`}
           />
+          {username}
         </Link>
       </div>
     </div>

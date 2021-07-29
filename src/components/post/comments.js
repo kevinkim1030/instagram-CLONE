@@ -7,6 +7,7 @@ import AddComment from './add-comment';
 export default function Comments({ docId, comments: allComments, posted, commentInput }) {
   const [comments, setComments] = useState(allComments);
   const [commentsSlice, setCommentsSlice] = useState(3);
+  // console.log('comments', comments);
 
   const showNextComments = () => {
     setCommentsSlice(commentsSlice + 3);
