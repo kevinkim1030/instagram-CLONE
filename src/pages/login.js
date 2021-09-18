@@ -39,10 +39,12 @@ export default function Login() {
           <h1 className="flex justify-center w-full">
             <img src="/images/logo.png" alt="Instagram" className="mt-2 w-6/12 mb-4" />
           </h1>
-
-          {error && <p className="mb-4 text-xs text-red-primary">{error}</p>}
-
-          <form onSubmit={handleLogin} method="POST">
+          {error && (
+            <p data-testid="error" className="mb-4 text-xs text-red-primary">
+              {error}
+            </p>
+          )}
+          <form onSubmit={handleLogin} method="POST" data-testid="login">
             <input
               aria-label="Enter your email address"
               type="text"
@@ -62,7 +64,7 @@ export default function Login() {
             <button
               disabled={isInvalid}
               type="submit"
-              className={`bg-blue-medium text-white w-full rounded h-8 font-bold
+              className={`bg-blue-medium text-white w-full rounded h-8 font-bold 
               ${isInvalid && ' opacity-50'}`}
             >
               Login
@@ -72,7 +74,7 @@ export default function Login() {
         <div className="flex justify-center items-center flex-col w-full bg-white p-4 border border-gray-primary rounded">
           <p className="text-sm">
             Don't have an account?{` `}
-            <Link to={ROUTES.SIGN_UP} className="font-bold text-blue-medium">
+            <Link to={ROUTES.SIGN_UP} className="font-bold text-blue-medium" data-testid="sign-up">
               Sign up
             </Link>
           </p>
